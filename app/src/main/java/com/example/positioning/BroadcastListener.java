@@ -9,6 +9,7 @@ public class BroadcastListener extends BroadcastReceiver {
     public static String LA, LO, DI, SP;
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.i("positionreceiver","Receiver works");
         double latitude = intent.getDoubleExtra(LocationService.EXTRA_LATITUDE, 0);
         double longitude = intent.getDoubleExtra(LocationService.EXTRA_LONGITUDE, 0);
         float distance = intent.getFloatExtra(LocationService.EXTRA_DISTANCE, 0);
