@@ -86,16 +86,6 @@ public class LocationService extends Service {
         Log.e("Start", "onStartCommand " + isRunning);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if (locationManager != null && !locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            enableLocationSettings();
-//              stopSelfResult(1);
-//              stopSelf();
-//              stopForeground(true);
-//              stopService(new Intent(this,LocationService.class));
-
-//              Log.e("stop", String.valueOf(stopSelfResult(1)));
-        }
-
         lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         date1 = new Date(lastLocation.getTime());
         travelTime = 0;
@@ -129,10 +119,10 @@ public class LocationService extends Service {
                 waypoint.setTime(date2);
                 waypointArrayList.add(waypoint);
                 Log.i("waypoint", String.valueOf(waypoint));
-                track.setTrackPoints(waypointArrayList);//
+                track.setTrackPoints(waypointArrayList);
                 tracks.clear();
                 tracks.add(track);
-                gpx.setTracks(tracks);//
+                gpx.setTracks(tracks);
                 try {
                     out = new FileOutputStream("/sdcard/Download/map.gpx");
                     gpxParser.writeGPX(gpx, out);
@@ -159,7 +149,6 @@ public class LocationService extends Service {
 
             @Override
             public void onProviderDisabled(String provider) {
-                enableLocationSettings();
             }
         };
 
@@ -209,22 +198,6 @@ public class LocationService extends Service {
 
     private static float avgSpeed(float distance, long time) {
         return (float) 3600000 * distance / time;
-    }
-
-    private void enableLocationSettings() {
-        new AlertDialog.Builder(LocationService.this)
-                .setTitle("enable GPS")
-                .setMessage("GPS is disabled")
-                .setPositiveButton("GPS settings", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent settingIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        startActivity(settingIntent);
-                    }
-                })
-                .setNegativeButton("no", null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
     }
 
 

@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onClick(View v) {
         intent = new Intent(this,LocationService.class);
@@ -113,7 +114,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onPause();
     }
 
+    protected boolean shouldAskPermissions() {
+        return (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED );
 
+    }
 
     @SuppressLint("NewApi")
     protected void askPermissions() {
@@ -127,11 +131,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         requestPermissions(permissions, requestCode);
     }
 
-
-    protected boolean shouldAskPermissions() {
-        return (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED );
-
-    }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);

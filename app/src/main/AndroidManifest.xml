@@ -20,13 +20,7 @@
             android:enabled="true"
             android:exported="true"
             android:process=":remote"/>
-        <receiver android:name=".BroadcastListener"  android:exported="true">
-            <intent-filter>
-                <action android:name="LocationService.ACTION_LOCATION_BROADCAST" />
-            </intent-filter>
-        </receiver>
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 </manifest>
